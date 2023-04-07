@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+    /**
+    * Copyright 2023 Adorncommerce LLP. All rights reserved.
+    * See LICENSE.txt for license details.
+    */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="dropshipment_email" label="Dropshipment Email"
+              file="dropshipment.html"
+              type="html"
+              module="Adorncommerce_Dropshipment"
+              area="frontend"
+    />
+    <template id="dropshipment_pdf" label="Dropshipment PDF"
+              file="dropshipmentpdf.html"
+              type="html"
+              module="Adorncommerce_Dropshipment"
+              area="frontend"
+    />
+</config>

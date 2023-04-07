@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<!--
+    /**
+    * Copyright 2023 Adorncommerce LLP. All rights reserved.
+    * See LICENSE.txt for license details.
+    */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<!--Supplier-->
+	<preference for="Adorncommerce\Dropshipment\Api\SupplierRepositoryInterface" type="Adorncommerce\Dropshipment\Model\SupplierRepository"/>
+	<preference for="Adorncommerce\Dropshipment\Api\Data\SupplierInterface" type="Adorncommerce\Dropshipment\Model\Supplier"/>
+	<preference for="Adorncommerce\Dropshipment\Api\Data\SupplierSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Adorncommerce\Dropshipment\Model\ResourceModel\Supplier\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">adorncommerce_dropshipment_supplier</argument>
+			<argument name="resourceModel" xsi:type="string">Adorncommerce\Dropshipment\Model\ResourceModel\Supplier\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="adorncommerce_dropshipment_supplier_listing_data_source" xsi:type="string">Adorncommerce\Dropshipment\Model\ResourceModel\Supplier\Grid\Collection</item>
+				<item name="adorncommerce_dropshipment_suppliertemplate_listing_data_source" xsi:type="string">Adorncommerce\Dropshipment\Model\ResourceModel\SupplierTemplate\Grid\Collection</item>
+				<item name="adorncommerce_dropshipment_dropshipments_listing_data_source" xsi:type="string">Adorncommerce\Dropshipment\Model\ResourceModel\Dropshipment\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	<!--Supplier-->
+
+	<!--Template-->
+	<preference for="Adorncommerce\Dropshipment\Api\SupplierTemplateRepositoryInterface" type="Adorncommerce\Dropshipment\Model\SupplierTemplateRepository"/>
+	<preference for="Adorncommerce\Dropshipment\Api\Data\SupplierTemplateInterface" type="Adorncommerce\Dropshipment\Model\SupplierTemplate"/>
+	<preference for="Adorncommerce\Dropshipment\Api\Data\SupplierTemplateSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Adorncommerce\Dropshipment\Model\ResourceModel\SupplierTemplate\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">adorncommerce_dropshipment_suppliertemplate</argument>
+			<argument name="resourceModel" xsi:type="string">Adorncommerce\Dropshipment\Model\ResourceModel\SupplierTemplate\Collection</argument>
+		</arguments>
+	</virtualType>
+	<!--Template-->
+
+	<!--Dropshipment-->
+	<preference for="Adorncommerce\Dropshipment\Api\DropshipmentRepositoryInterface" type="Adorncommerce\Dropshipment\Model\DropshipmentRepository"/>
+	<preference for="Adorncommerce\Dropshipment\Api\Data\DropshipmentInterface" type="Adorncommerce\Dropshipment\Model\Dropshipment"/>
+	<preference for="Adorncommerce\Dropshipment\Api\Data\DropshipmentSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Adorncommerce\Dropshipment\Model\ResourceModel\Dropshipment\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">adorncommerce_dropshipment_supplier_dropship_items</argument>
+			<argument name="resourceModel" xsi:type="string">Adorncommerce\Dropshipment\Model\ResourceModel\Dropshipment\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="adorncommerce_dropshipment_dropshipment_listing_data_source" xsi:type="string">Adorncommerce\Dropshipment\Model\ResourceModel\Dropshipment\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	<!--Dropshipment-->
+
+	<!-- Image Uploader -->
+	<virtualType name="Adorncommerce\Dropshipment\ImageUpload" type="Magento\Catalog\Model\ImageUploader">
+		<arguments>
+			<argument name="baseTmpPath" xsi:type="string">logo/image</argument>
+			<argument name="basePath" xsi:type="string">logo/image</argument>
+			<argument name="allowedExtensions" xsi:type="array">
+				<item name="jpg" xsi:type="string">jpg</item>
+				<item name="jpeg" xsi:type="string">jpeg</item>
+				<item name="gif" xsi:type="string">gif</item>
+				<item name="png" xsi:type="string">png</item>
+			</argument>
+		</arguments>
+	</virtualType>
+	<type name="Adorncommerce\Dropshipment\Controller\Adminhtml\Supplier\Uploader">
+		<arguments>
+			<argument name="imageUploader" xsi:type="object">Adorncommerce\Dropshipment\ImageUpload</argument>
+		</arguments>
+	</type>
+	<!-- End Image Uploader -->
+</config>

@@ -1,0 +1,25 @@
+<?php $helper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class); ?>
+<section class="admin__page-section order-view-account-information">
+    <div class="entry-edit" style="width: 50%">
+        <div class="admin__page-section-content">
+            <table class="admin__table-secondary order-information-table">
+                <tr>
+                    <th><?= /* @noEscape */ 'Sales'; ?></th>
+                    <td><?= /* @noEscape */ $helper->currency($block->getTotalSales(), true, false); ?></td>
+                </tr>
+                <tr>
+                    <th><?= /* @noEscape */ 'Costs'; ?></th>
+                    <td><?= /* @noEscape */ $helper->currency($block->getTotalCosts(), true, false); ?></td>
+                </tr>
+                <tr>
+                    <th><?= /* @noEscape */ 'Profit'; ?></th>
+                    <td><?= /* @noEscape */ $helper->currency($block->getTotalEarnings(), true, false); ?></td>
+                </tr>
+                <tr>
+                    <th><?= /* @noEscape */ 'Total Ordered Items'; ?></th>
+                    <td><?= /* @noEscape */ $block->getNoOfDropshipments(); ?></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>

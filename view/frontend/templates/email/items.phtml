@@ -1,0 +1,62 @@
+<?php
+/** @var $block Template */
+
+use Magento\Framework\View\Element\Template;
+
+?>
+<?php $helper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class); ?>
+<?php $_items = $block->getItems() ?>
+<thead>
+<tr>
+    <th class="item-info">
+        <?= /* @noEscape  */
+        __('Product'); ?>
+    </th>
+    <th class="item-qty" style="text-align: left;">
+        <?= /* @noEscape */
+        __('SKU'); ?>
+    </th>
+    <th class="item-qty">
+        <?= /* @noEscape */
+        __('QTY Shipped'); ?>
+    </th>
+    <th class="item-price">
+        <?= /* @noEscape */
+        __('Price'); ?>
+    </th>
+    <th class="item-price">
+        <?= /* @noEscape */
+        __('Row Total'); ?>
+    </th>
+</tr>
+</thead>
+<tbody>
+<?php foreach ($_items as $_item): ?>
+    <?php if ($_item['sku_dropshipped']) {
+        $sku = $_item['sku_dropshipped'];
+    } else {
+        $sku = $_item['sku'];
+    } ?>
+
+    <?php if ($_item['qty_dropshipped']) {
+        $qty = (int)$_item['qty_dropshipped'];
+    } else {
+        $qty = (int)$_item['qty'];
+    }
+    ?>
+    <tr>
+        <td style="border-top: 1px solid #e0e0e0;">
+            <?= /* @noEscape */ $_item['product_name'] ?>
+            <?php if ($_item['additional_info']) { ?>
+                <p><strong>Additional Info : </strong><?= /* @noEscape */ $_item['additional_info']; ?></p>
+            <?php } ?>
+        </td>
+        <td style="border-top: 1px solid #e0e0e0;"><?= /* @noEscape */ $sku; ?></td>
+        <td style="border-top: 1px solid #e0e0e0; text-align: center;"><?= /* @noEscape */ $qty; ?></td>
+        <td style="border-top: 1px solid #e0e0e0; text-align: right;"><?= /* @noEscape */
+        $helper->currency($_item['cost'], true, false); ?></td>
+        <td style="border-top: 1px solid #e0e0e0; text-align: right;"><?= /* @noEscape */
+        $helper->currency((int)$_item['cost'] * $qty, true, false); ?></td>
+    </tr>
+<?php endforeach; ?>
+</tbody>

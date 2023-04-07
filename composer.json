@@ -1,0 +1,25 @@
+{
+    "name": "adorncommerce/module-dropshipment",
+    "description": "Dropshipment",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Adorncommerce",
+            "email": "contact@adorncommerce.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "adorncommerce/module-core": "*",
+        "dompdf/dompdf": "*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Adorncommerce\\Dropshipment\\": ""
+        }
+    }
+}

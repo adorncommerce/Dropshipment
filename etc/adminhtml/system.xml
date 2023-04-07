@@ -1,0 +1,96 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <!--
+    /**
+    * Copyright 2023 Adorncommerce LLP. All rights reserved.
+    * See LICENSE.txt for license details.
+    */
+-->
+    <system>
+        <tab id="adorncommerce" translate="label" sortOrder="999">
+            <label>Adorncommerce</label>
+        </tab>
+        <section id="dropshipment" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+            <label>Dropshipment Configuration</label>
+            <tab>adorncommerce</tab>
+            <resource>Adorncommerce_Dropshipment::config_adorncommerce_dropshipment</resource>
+            <group id="general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>General</label>
+                <field id="enabled" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1"
+                       translate="label">
+                    <label>Enabled</label>
+                    <comment>Enable/Disable Module</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="dropshipment" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1"
+                   translate="label">
+                <label>Dropshipment Configuration</label>
+                <depends>
+                    <field id="dropshipment/general/enabled">1</field>
+                </depends>
+                <field id="dropshipment_prefix" type="text" sortOrder="10" showInWebsite="1" showInStore="1"
+                       showInDefault="1"
+                       translate="label">
+                    <label>Dropshipment Prefix</label>
+                    <comment>Dropshipment Prefix. ex. PO-10000000,PO-10000001,PO-10000002</comment>
+                </field>
+                <field id="is_order_status_change" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1"
+                       translate="label">
+                    <label>After create Dropshipment Order Status Change ?</label>
+                    <comment>If enabled then After generate Dropshipment Order status was Change</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="order_status" type="select" sortOrder="10" showInWebsite="1" showInStore="1"
+                       showInDefault="1" translate="label">
+                    <label>Order Status After Dropshipment</label>
+                    <comment>After Dropshipment generate order status was change to selected status</comment>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                    <depends>
+                        <field id="dropshipment/dropshipment/is_order_status_change">1</field>
+                    </depends>
+                </field>
+                <field id="is_send_pdf_in_email" type="select" sortOrder="10" showInWebsite="1" showInStore="1"
+                       showInDefault="1"
+                       translate="label">
+                    <label>Is Send Dropshipment PDF in Email</label>
+                    <comment>Selece Yes to send PDF in Dropshipment Email</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="email_option" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1"
+                   translate="label">
+                <label>Dropshipment Email Configuration</label>
+                <depends>
+                    <field id="dropshipment/general/enabled">1</field>
+                </depends>
+                <field id="email_subject" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1"
+                       translate="label">
+                    <label>Dropshipment Email Subject</label>
+                    <comment>Dropshipment Email Subject if Supplier not select any Email template or blank email subject</comment>
+                </field>
+                <field id="email_header" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1"
+                       translate="label">
+                    <label>Dropshipment Email Header</label>
+                    <comment>Dropshipment Email Header if Supplier not select any Email template or blank email subject</comment>
+                </field>
+                <field id="email_message" translate="label comment" type="editor" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Dropshipment Email Message</label>
+                    <frontend_model>Adorncommerce\Dropshipment\Block\Adminhtml\System\Config\Form\Field\Editor</frontend_model>
+                    <comment>Dropshipment Email Message if Supplier not select any Email template or blank email subject</comment>
+                </field>
+                <field id="email_sender_email" type="select" sortOrder="10" showInWebsite="1" showInStore="1"
+                       showInDefault="1" translate="label">
+                    <label>Dropshipment Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <comment>Select Email Sender</comment>
+                </field>
+                <field id="bcc_email_address" type="text" sortOrder="10" showInWebsite="1" showInStore="1"
+                       showInDefault="1" translate="label">
+                    <label>Send Dropshipment Email Copy To:</label>
+                    <comment>If you want to send Bcc email then add comma seperated Email</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

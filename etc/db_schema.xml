@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<!--
+    /**
+    * Copyright 2023 Adorncommerce LLP. All rights reserved.
+    * See LICENSE.txt for license details.
+    */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="adorncommerce_dropshipment_supplier" resource="default" engine="innodb" comment="adorncommerce_dropshipment_supplier Table">
+		<column xsi:type="int" name="supplier_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="supplier_id"/>
+		</constraint>
+		<column name="supplier_code" nullable="true" xsi:type="text" comment="supplier_code"/>
+		<column name="supplier_logo" nullable="true" xsi:type="text" comment="supplier_logo"/>
+		<column name="supplier_status" nullable="true" xsi:type="boolean" comment="supplier_status"/>
+		<column name="supplier_email" nullable="true" xsi:type="text" comment="supplier_email"/>
+		<column name="supplier_company" nullable="true" xsi:type="text" comment="supplier_company"/>
+		<column name="supplier_website" nullable="true" xsi:type="text" comment="supplier_website"/>
+		<column name="supplier_sales_contact_name" nullable="true" xsi:type="text" comment="supplier_sales_contact_name"/>
+		<column name="supllier_sales_email" nullable="true" xsi:type="text" comment="supllier_sales_email"/>
+		<column name="supplier_sales_phone_number" nullable="true" xsi:type="text" comment="supplier_sales_phone_number"/>
+		<column name="supplier_street_address" nullable="true" xsi:type="text" comment="supplier_street_address"/>
+		<column name="supplier_city" nullable="true" xsi:type="text" comment="supplier_city"/>
+		<column name="supplier_postal_code" nullable="true" xsi:type="text" comment="supplier_postal_code"/>
+		<column name="supplier_country" nullable="true" xsi:type="text" comment="supplier_country"/>
+		<column name="email_template" nullable="true" xsi:type="text" comment="email_template"/>
+		<column name="email_subject" nullable="true" xsi:type="text" comment="email_subject"/>
+		<column name="email_header" nullable="true" xsi:type="text" comment="email_header"/>
+		<column name="email_message" nullable="true" xsi:type="text" comment="email_message"/>
+		<column name="created_at" default="CURRENT_TIMESTAMP" xsi:type="timestamp" on_update="true" comment="Created At"/>
+	</table>
+	<table name="adorncommerce_dropshipment_suppliertemplate" resource="default" engine="innodb" comment="adorncommerce_dropshipment_suppliertemplate Table">
+		<column xsi:type="int" name="suppliertemplate_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="suppliertemplate_id"/>
+		</constraint>
+		<column name="email_template_name" nullable="true" xsi:type="text" comment="email_template_name"/>
+		<column name="email_subject" nullable="true" xsi:type="text" comment="email_subject"/>
+		<column name="email_header" nullable="true" xsi:type="text" comment="email_header"/>
+		<column name="email_message" nullable="true" xsi:type="text" comment="email_message"/>
+		<column name="created_at" default="CURRENT_TIMESTAMP" xsi:type="timestamp" on_update="true" comment="Created At"/>
+	</table>
+	<table name="adorncommerce_dropshipment_supplier_dropship_items" resource="sales" engine="innodb" comment="Supplier Dropship Items">
+		<column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+		<column xsi:type="text" name="dropshipment_id" nullable="true" comment="Dropship Id"/>
+		<column xsi:type="text" name="order_id" nullable="true" comment="Order Id"/>
+		<column xsi:type="text" name="order_item_id" nullable="true" comment="Order Item Id"/>
+		<column xsi:type="text" name="supplier_id" nullable="true" comment="Supplier Id"/>
+		<column xsi:type="text" name="supplier_name" nullable="true" comment="Supllier Name"/>
+		<column xsi:type="text" name="product_id" nullable="true" comment="Product Id"/>
+		<column xsi:type="text" name="product_name" nullable="true" comment="Product Name"/>
+		<column xsi:type="text" name="additional_info" nullable="true" comment="Additional Info"/>
+		<column xsi:type="text" name="sku" nullable="true" comment="Sku"/>
+		<column xsi:type="text" name="sku_dropshipped" nullable="true" comment="Sku Dropshipped"/>
+		<column xsi:type="text" name="qty" nullable="true" comment="Qty"/>
+		<column xsi:type="text" name="qty_dropshipped" nullable="true" comment="Qty Dropshipped"/>
+		<column xsi:type="text" name="cost" nullable="true" comment="Cost"/>
+		<column xsi:type="text" name="price" nullable="true" comment="Price"/>
+		<column xsi:type="timestamp" name="created_at" default="CURRENT_TIMESTAMP" on_update="true" comment="Created At"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="id"/>
+		</constraint>
+	</table>
+	<table name="sales_order_item" resource="sales">
+		<column xsi:type="varchar" name="is_dropship_generated" nullable="false" default="0"/>
+	</table>
+</schema>

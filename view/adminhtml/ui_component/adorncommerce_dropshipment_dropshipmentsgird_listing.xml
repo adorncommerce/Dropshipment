@@ -1,0 +1,128 @@
+<?xml version="1.0" ?>
+<!--
+    /**
+    * Copyright 2023 Adorncommerce LLP. All rights reserved.
+    * See LICENSE.txt for license details.
+    */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">adorncommerce_dropshipment_dropshipmentsgird_listing.adorncommerce_dropshipment_dropshipments_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>adorncommerce_dropshipment_dropshipments_columns</spinner>
+        <deps>
+            <dep>adorncommerce_dropshipment_dropshipmentsgird_listing.adorncommerce_dropshipment_dropshipments_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="adorncommerce_dropshipment_dropshipments_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider name="adorncommerce_dropshipment_dropshipments_listing_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="adorncommerce_dropshipment_dropshipments_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="dropshipment_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Dropshipment Id</label>
+            </settings>
+        </column>
+        <column name="order_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Order Id</label>
+            </settings>
+        </column>
+        <column name="supplier_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Supplier Name</label>
+            </settings>
+        </column>
+        <column name="product_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Product Name</label>
+            </settings>
+        </column>
+        <column name="sku">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">SKU</label>
+            </settings>
+        </column>
+        <column name="sku_dropshipped">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Dropshipment SKU</label>
+            </settings>
+        </column>
+        <column name="qty">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Qty</label>
+            </settings>
+        </column>
+        <column name="qty_dropshipped">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Dropshipment QTY</label>
+            </settings>
+        </column>
+        <column name="cost">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Cost</label>
+            </settings>
+        </column>
+        <column name="price">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Price</label>
+            </settings>
+        </column>
+        <column name="created_at">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Price</label>
+            </settings>
+        </column>
+        <column name="additional_info">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Additional Info</label>
+            </settings>
+        </column>
+        <column name="created_at">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Created At</label>
+            </settings>
+        </column>
+    </columns>
+</listing>

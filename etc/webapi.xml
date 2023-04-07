@@ -1,0 +1,99 @@
+<?xml version="1.0" ?>
+<!--
+    /**
+    * Copyright 2023 Adorncommerce LLP. All rights reserved.
+    * See LICENSE.txt for license details.
+    */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/adorncommerce-dropshipment/supplier" method="POST">
+		<service class="Adorncommerce\Dropshipment\Api\SupplierRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::Supplier_save"/>
+		</resources>
+	</route>
+	<route url="/V1/adorncommerce-dropshipment/supplier/search" method="GET">
+		<service class="Adorncommerce\Dropshipment\Api\SupplierRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::Supplier_view"/>
+		</resources>
+	</route>
+	<route url="/V1/adorncommerce-dropshipment/supplier/:supplierId" method="GET">
+		<service class="Adorncommerce\Dropshipment\Api\SupplierRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::Supplier_view"/>
+		</resources>
+	</route>
+	<route url="/V1/adorncommerce-dropshipment/supplier/:supplierId" method="PUT">
+		<service class="Adorncommerce\Dropshipment\Api\SupplierRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::Supplier_update"/>
+		</resources>
+	</route>
+	<route url="/V1/adorncommerce-dropshipment/supplier/:supplierId" method="DELETE">
+		<service class="Adorncommerce\Dropshipment\Api\SupplierRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::Supplier_delete"/>
+		</resources>
+	</route>
+	<route url="/V1/adorncommerce-dropshipment/suppliertemplate" method="POST">
+		<service class="Adorncommerce\Dropshipment\Api\SupplierTemplateRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::SupplierTemplate_save"/>
+		</resources>
+	</route>
+	<route url="/V1/adorncommerce-dropshipment/suppliertemplate/search" method="GET">
+		<service class="Adorncommerce\Dropshipment\Api\SupplierTemplateRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::SupplierTemplate_view"/>
+		</resources>
+	</route>
+	<route url="/V1/adorncommerce-dropshipment/suppliertemplate/:suppliertemplateId" method="GET">
+		<service class="Adorncommerce\Dropshipment\Api\SupplierTemplateRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::SupplierTemplate_view"/>
+		</resources>
+	</route>
+	<route url="/V1/adorncommerce-dropshipment/suppliertemplate/:suppliertemplateId" method="PUT">
+		<service class="Adorncommerce\Dropshipment\Api\SupplierTemplateRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::SupplierTemplate_update"/>
+		</resources>
+	</route>
+	<route url="/V1/adorncommerce-dropshipment/suppliertemplate/:suppliertemplateId" method="DELETE">
+		<service class="Adorncommerce\Dropshipment\Api\SupplierTemplateRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::SupplierTemplate_delete"/>
+		</resources>
+	</route>
+	<route url="/V1/adorncommerce-dropshipment/dropshipment" method="POST">
+		<service class="Adorncommerce\Dropshipment\Api\DropshipmentRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::Dropshipment_save"/>
+		</resources>
+	</route>
+	<route url="/V1/adorncommerce-dropshipment/dropshipment/search" method="GET">
+		<service class="Adorncommerce\Dropshipment\Api\DropshipmentRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::Dropshipment_view"/>
+		</resources>
+	</route>
+	<route url="/V1/adorncommerce-dropshipment/dropshipment/:dropshipmentId" method="GET">
+		<service class="Adorncommerce\Dropshipment\Api\DropshipmentRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::Dropshipment_view"/>
+		</resources>
+	</route>
+	<route url="/V1/adorncommerce-dropshipment/dropshipment/:dropshipmentId" method="PUT">
+		<service class="Adorncommerce\Dropshipment\Api\DropshipmentRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::Dropshipment_update"/>
+		</resources>
+	</route>
+	<route url="/V1/adorncommerce-dropshipment/dropshipment/:dropshipmentId" method="DELETE">
+		<service class="Adorncommerce\Dropshipment\Api\DropshipmentRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Adorncommerce_Dropshipment::Dropshipment_delete"/>
+		</resources>
+	</route>
+</routes>

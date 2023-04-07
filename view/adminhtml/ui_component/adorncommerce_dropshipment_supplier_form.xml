@@ -1,0 +1,399 @@
+<?xml version="1.0" ?>
+<!--
+    /**
+    * Copyright 2023 Adorncommerce LLP. All rights reserved.
+    * See LICENSE.txt for license details.
+    */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">adorncommerce_dropshipment_supplier_form.supplier_form_data_source
+            </item>
+            <item name="deps" xsi:type="string">adorncommerce_dropshipment_supplier_form.supplier_form_data_source
+            </item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">General Information</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">adorncommerce_dropshipment_supplier_form</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="back" class="Adorncommerce\Dropshipment\Block\Adminhtml\Supplier\Edit\BackButton"/>
+            <button name="delete" class="Adorncommerce\Dropshipment\Block\Adminhtml\Supplier\Edit\DeleteButton"/>
+            <button name="save" class="Adorncommerce\Dropshipment\Block\Adminhtml\Supplier\Edit\SaveButton"/>
+            <button name="save_and_continue"
+                    class="Adorncommerce\Dropshipment\Block\Adminhtml\Supplier\Edit\SaveAndContinueButton"/>
+        </buttons>
+        <namespace>adorncommerce_dropshipment_supplier_form</namespace>
+        <dataScope>data</dataScope>
+        <layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>
+        <deps>
+            <dep>adorncommerce_dropshipment_supplier_form.supplier_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="supplier_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider name="supplier_form_data_source" class="Adorncommerce\Dropshipment\Model\Supplier\DataProvider">
+            <settings>
+                <requestFieldName>supplier_id</requestFieldName>
+                <primaryFieldName>supplier_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="supplier_dashboard">
+        <settings>
+            <label>Dashboard</label>
+        </settings>
+        <container name="supplier_dashboard_container">
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Adorncommerce\Dropshipment\Block\Adminhtml\Dropshipment\Dashboard</argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+    <fieldset name="dropshipment">
+        <settings>
+            <label>Dropshipment</label>
+        </settings>
+        <insertListing name="adorncommerce_dropshipment_dropshipmentgird_listing">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/components/insert-listing</item>
+                </item>
+            </argument>
+            <settings>
+                <autoRender>true</autoRender>
+                <ns>adorncommerce_dropshipment_dropshipmentgird_listing</ns>
+                <externalProvider>adorncommerce_dropshipment_dropshipment_listing_data_source</externalProvider>
+            </settings>
+        </insertListing>
+        <insertListing name="adorncommerce_dropshipment_dropshipmentgird_listing"
+                       component="Magento_Customer/js/form/components/insert-listing">
+            <settings>
+                <dataLinks>
+                    <exports>false</exports>
+                    <imports>true</imports>
+                </dataLinks>
+                <externalProvider>
+                    adorncommerce_dropshipment_dropshipmentgird_listing.adorncommerce_dropshipment_dropshipment_listing_data_source
+                </externalProvider>
+                <autoRender>true</autoRender>
+                <dataScope>adorncommerce_dropshipment_dropshipmentgird_listing</dataScope>
+                <ns>adorncommerce_dropshipment_dropshipmentgird_listing</ns>
+                <exports>
+                    <link name="parent_id">${ $.externalProvider }:params.supplier_id</link>
+                </exports>
+                <imports>
+                    <link name="parent_id">${ $.provider }:data.general.supplier_id</link>
+                </imports>
+            </settings>
+        </insertListing>
+    </fieldset>
+    <fieldset name="general">
+        <settings>
+            <label>Supplier Info</label>
+        </settings>
+        <field name="supplier_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <field name="supplier_code" formElement="input" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Supplier Code</label>
+                <dataScope>supplier_code</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="supplier_logo">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="source" xsi:type="string">Supplier</item>
+                    <item name="label" xsi:type="string" translate="true">Logo</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="formElement" xsi:type="string">fileUploader</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
+                    <item name="previewTmpl" xsi:type="string">Adorncommerce_Dropshipment/image-preview</item>
+                    <item name="required" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="uploaderConfig" xsi:type="array">
+                        <item name="url" xsi:type="url" path="adorncommerce_dropshipment/supplier/uploader"/>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="supplier_status" sortOrder="30" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Status</label>
+                <dataScope>supplier_status</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="supplier_email" formElement="input" sortOrder="40">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Email Address</label>
+                <dataScope>supplier_email</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="supplier_company" formElement="input" sortOrder="50">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Company</label>
+                <dataScope>supplier_company</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="supplier_website" formElement="input" sortOrder="60">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Website</label>
+                <dataScope>supplier_website</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="supplier_sales_contact_name" formElement="input" sortOrder="70">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Sales Contact Name</label>
+                <dataScope>supplier_sales_contact_name</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="supllier_sales_email" formElement="input" sortOrder="80">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Sales Email</label>
+                <dataScope>supllier_sales_email</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="supplier_sales_phone_number" formElement="input" sortOrder="90">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Sales Phone</label>
+                <dataScope>supplier_sales_phone_number</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="supplier_street_address" formElement="input" sortOrder="100">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Street</label>
+                <dataScope>supplier_street_address</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="supplier_city" formElement="input" sortOrder="110">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">City</label>
+                <dataScope>supplier_city</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="supplier_postal_code" formElement="input" sortOrder="120">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Postal Code</label>
+                <dataScope>supplier_postal_code</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="supplier_country" formElement="input" sortOrder="130">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Country</label>
+                <dataScope>supplier_country</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="supplier_email_template_configuration">
+        <settings>
+            <label>Supplier Email Configration</label>
+        </settings>
+        <field name="email_template">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Adorncommerce\Dropshipment\Model\Supplier\EmailTemplate</item>
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Adorncommerce_Dropshipment/js/form/element/email-template
+                    </item>
+                    <item name="elementTmpl" xsi:type="string">Adorncommerce_Dropshipment/form/element/email-template
+                    </item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Email Template</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">email_template</item>
+                </item>
+            </argument>
+        </field>
+        <field name="email_subject" formElement="input" sortOrder="150">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Email Subject</label>
+                <dataScope>email_subject</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="email_header" formElement="input" sortOrder="160">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Email Header</label>
+                <dataScope>email_header</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="email_message" formElement="wysiwyg" sortOrder="170">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Supplier</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label>Email Message</label>
+                <dataScope>email_message</dataScope>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

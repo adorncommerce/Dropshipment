@@ -1,0 +1,303 @@
+<!--@codingStandardsIgnoreFile-->
+<?php $items = $block->getOrder()->getAllVisibleItems(); ?>
+<?php $order = $block->getOrder(); ?>
+<?php $dropshipmentGeneratedItems = $block->getDropshipmentGeneratedItems($order->getId()); ?>
+<form id="supplier_dropship" name="supplier_dropship"
+      action="<?= /* @noEscape */
+      $block->getUrl('dropshipment/dropshipments/purchaseordersubmit', ['id' =>
+          $block->getRequest()->getParam('order_id')]); ?>"
+      method="post" enctype="multipart/form-data" data-mage-init='{"validation":{}}'>
+    <input name="form_key" type="hidden" value="<?= /* @noEscape */
+    $block->getFormKey() ?>"/>
+    <div align="right" style="margin-bottom:18px">
+        <table cellspacing="0" class="grid-header">
+            <table cellspacing="0" class="grid-header">
+                <tr>
+                    <td class="a-right">
+                        <button class="scalable" id="online" type="submit">
+                            <span><?= /* @noEscape */
+                                "Submit Purchase Order"; ?></span>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+    </div>
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-products"><?= /* @noEscape */
+                "Items Ordered"; ?></h4>
+        </div>
+    </div>
+    <div class="grid np">
+        <div class="hor-scroll">
+            <table cellspacing="0" class="dropship-table data-grid data-grid-draggable">
+                <thead>
+                <tr class="headings">
+                    <th class="data-grid-th">&nbsp;</th>
+                    <th class="data-grid-th"><?= /* @noEscape */
+                        "Product"; ?></th>
+                    <th class="data-grid-th"><?= /* @noEscape */
+                        "SKU"; ?></th>
+                    <th class="data-grid-th"><?= /* @noEscape */
+                        "Qty"; ?></th>
+                    <th class="data-grid-th"><?= /* @noEscape */
+                        "Price"; ?></th>
+                    <th class="data-grid-th"><?= /* @noEscape */
+                        "Cost"; ?></th>
+                    <th class="data-grid-th"><?= /* @noEscape */
+                        "Additional Info"; ?></th>
+                    <th class="last data-grid-th"><?= /* @noEscape */
+                        "Supplier"; ?></th>
+                </tr>
+                </thead>
+                <tbody class="even">
+                <?php $i = 0; ?>
+                <?php foreach ($items as $item): ?>
+                    <?php if ($item->getProduct() != null && $item->getProductType() == "simple" && $this->getParentItemId() == null &&
+                        $item->getIsDropshipGenerated() == 0): ?>
+                        <?php
+                        $productBaseCost = $item->getProduct()->getBaseCost();
+                        if ($productBaseCost == null) {
+                            $productBaseCost = $item->getBaseCost();
+                        }
+                        ?>
+                        <?php $product = $block->getProduct($item->getProduct()->getId()); ?>
+                        <tr class="data-row <?php if ($i % 2 == 0) { ?>_odd-row <?php } ?>">
+                            <td width="1">
+                                <input type="checkbox" name="supplier[<?= /* @noEscape */
+                                $i; ?>][order_item_id]"
+                                       value="<?= /* @noEscape */
+                                       $item->getId() ?>" checked="checked"
+                                       onchange="return removeValidation(<?= /* @noEscape */
+                                       $i ?>,<?= /* @noEscape */
+                                       $item->getId() ?>,this);"/></td>
+                            <td>
+                                <div><a target="_blank"
+                                        href="<?= /* @noEscape */
+                                        $product->getProductUrl(); ?>"><?= /* @noEscape */
+                                        $item->getName(); ?>
+                                    </a>
+                                </div>
+                            </td>
+                            <td>
+                                <div><?= /* @noEscape */
+                                    $item->getSku(); ?></div>
+                                <textarea name="supplier[<?= /* @noEscape */
+                                $i; ?>][sku_dropshipped]"
+                                          style="width:98%; height:50px;"
+                                          placeholder="<?= /* @noEscape */
+                                          $item->getSku(); ?>"></textarea>
+                            </td>
+                            <td>
+                                <div>Total Qty : <?= /* @noEscape */
+                                    round($item->getQtyOrdered()); ?></div>
+                                <input type="text" name="supplier[<?= /* @noEscape */
+                                $i; ?>][qty_dropshipped]"
+                                       placeholder="<?= /* @noEscape */
+                                       round($item->getQtyOrdered()); ?>"
+                                       value="<?= /* @noEscape */
+                                       round($item->getQtyOrdered()); ?>"
+                                       style="width:30px;"/>
+                            </td>
+                            <td>
+                                <div>Price : <?= /* @noEscape */
+                                    number_format($item->getPrice(), 2); ?></div>
+                            </td>
+                            <td>
+                                <?php $cost = $productBaseCost ?? $item->getBaseCost(); ?>
+                                <?php if (!empty($cost) && $cost != 0): ?>
+                                    <div>Cost : <?= /* @noEscape */
+                                        number_format($cost, 2); ?></div>
+                                <?php endif; ?>
+                                <input id="cost-<?= /* @noEscape */
+                                $i; ?>" type="text"
+                                       name="supplier[<?= /* @noEscape */
+                                       $i; ?>][cost]"
+                                       placeholder="<?= /* @noEscape */
+                                       $productBaseCost; ?>"
+                                    <?php if ($productBaseCost) { ?> value="<?= /* @noEscape */
+                                    number_format($productBaseCost, 2) ?>"<?php } ?>
+                                       style="width:50px;"/>
+                            </td>
+                            <td>
+                                    <textarea name="supplier[<?= /* @noEscape */
+                                    $i; ?>][additional_info]"
+                                              style="width: 98%; height: 50px;"
+                                              placeholder="<?= /* @noEscape */
+                                              "Additional info"; ?>"></textarea>
+                            </td>
+                            <td>
+                                <select rel="cost-<?= /* @noEscape */
+                                $i; ?>"
+                                        name="supplier[<?= /* @noEscape */
+                                        $i; ?>][supplier_id]"
+                                        id="supplier[<?= /* @noEscape */
+                                        $i; ?>][supplier_id]"
+                                        data-validate='{"required":true}'>
+                                    <option value=""></option>
+                                    <?php foreach ($block->getAllSuppliers() as $supplier): ?>
+                                        <option value="<?= /* @noEscape */
+                                        $supplier->getSupplierId(); ?>">
+                                            <?= /* @noEscape */
+                                            $supplier->getSupplierCode(); ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                            <input name="supplier[<?= /* @noEscape */
+                            $i; ?>][order_id]" type="hidden"
+                                   value="<?= /* @noEscape */
+                                   $order->getId(); ?>">
+                            <input name="supplier[<?= /* @noEscape */
+                            $i; ?>][product_id]" type="hidden"
+                                   value="<?= /* @noEscape */
+                                   $item->getProduct()->getId(); ?>">
+                            <input name="supplier[<?= /* @noEscape */
+                            $i; ?>][product_name]" type="hidden"
+                                   value="<?= /* @noEscape */
+                                   $item->getProduct()->getName(); ?>">
+                            <input name="supplier[<?= /* @noEscape */
+                            $i; ?>][sku]" type="hidden"
+                                   value="<?= /* @noEscape */
+                                   $item->getProduct()->getSku(); ?>">
+                            <input name="supplier[<?= /* @noEscape */
+                            $i; ?>][qty]" type="hidden"
+                                   value="<?= /* @noEscape */
+                                   $item->getQtyOrdered(); ?>">
+                            <input name="supplier[<?= /* @noEscape */
+                            $i; ?>][price]" type="hidden"
+                                   value="<?= /* @noEscape */
+                                   $item->getProduct()->getPrice(); ?>">
+                        </tr>
+                    <?php elseif (empty($item->getProduct())): ?>
+                        <tr class="border">
+                            <td colspan="7" align="center">
+                                <?= /* @noEscape */
+                                "SKU :" . $item->getSku(); ?>
+                                <br/>
+                                <?= /* @noEscape */
+                                "This item has missing data in quote or product doesn't exist in catalog.";
+                                ?>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php $i++;
+                endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+<br/>
+<br/>
+<?= /* @noEscape */
+$block->getRequest()->getParam('tab'); ?>
+<?php if (count($dropshipmentGeneratedItems)): ?>
+    <form id="dropped_items" name="dropped_items"
+          action="<?= /* @noEscape */
+          $block->getUrl('dropshipment/dropshipments/deleteDropshipment'); ?>id/
+          <?= /* @noEscape */
+          $block->getRequest()->getParam('order_id'); ?>/"
+          method="post" enctype="multipart/form-data">
+        <input name="form_key" type="hidden" value="<?= /* @noEscape */
+        $block->getFormKey() ?>"/>
+
+        <div align="right" style="margin-bottom:18px">
+            <table cellspacing="0" class="grid-header">
+                <tr>
+                    <td class="a-right">
+                        <button class="scalable" type="submit">
+                            <span><span><span>Delete and Re-Submit PO</span></span></span></button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4 class="icon-head head-products"><?= /* @noEscape */
+                    "Dropshipped Items"; ?></h4>
+            </div>
+            <div class="grid np">
+                <div class="hor-scroll">
+                    <table cellspacing="0" class="dropshipped-table data-grid data-grid-draggable">
+                        <thead>
+                        <tr class="headings">
+                            <th class="data-grid-th">&nbsp;</th>
+                            <th class="data-grid-th"><?= /* @noEscape */
+                                "Dropship number"; ?></th>
+                            <th class="data-grid-th"><?= /* @noEscape */
+                                "Product"; ?></th>
+                            <th class="data-grid-th"><?= /* @noEscape */
+                                "SKU"; ?></th>
+                            <th class="data-grid-th"><?= /* @noEscape */
+                                "Qty"; ?></th>
+                            <th class="data-grid-th"><?= /* @noEscape */
+                                "Cost"; ?></th>
+                            <th class="data-grid-th"><?= /* @noEscape */
+                                "Additional Info"; ?></th>
+                            <th class="data-grid-th"><?= /* @noEscape */
+                                "Price"; ?></th>
+                            <th class="data-grid-th"><?= /* @noEscape */
+                                "Supplier"; ?></th>
+                            <th class="data-grid-th"><?= /* @noEscape */
+                                "Date"; ?></th>
+                        </tr>
+
+                        </thead>
+                        <?php if (count($dropshipmentGeneratedItems)): ?>
+                            <?php foreach ($dropshipmentGeneratedItems as $droppedItem): ?>
+                                <tr class="border">
+                                    <td width="1">
+                                        <input type="checkbox"
+                                               name="dropped_items[<?= /* @noEscape */
+                                               $droppedItem->getOrderItemId()
+                                               ?>]"
+                                               value="<?= /* @noEscape */
+                                               $droppedItem->getData('id') ?>"
+                                               checked="checked"/>
+                                    </td>
+                                    <td><?= /* @noEscape */
+                                        $droppedItem->getDropshipmentId(); ?></td>
+                                    <td><?= /* @noEscape */
+                                        $droppedItem->getProductName(); ?></td>
+                                    <td><?= /* @noEscape */
+                                        $droppedItem->getSkuDropshipped() ?
+                                            $droppedItem->getSkuDropshipped() : $droppedItem->getSku(); ?></td>
+                                    <td><?php if (round($droppedItem->getQtyDropshipped()) != "0") { ?>
+                                            <?= /* @noEscape */
+                                            round($droppedItem->getQtyDropshipped()); ?>
+                                        <?php } else { ?>
+                                            <?= /* @noEscape */
+                                            round($droppedItem->getQty()); ?>
+                                        <?php } ?></td>
+                                    <td><?= /* @noEscape */
+                                        $droppedItem->getCost(); ?></td>
+                                    <td><?php if (!empty($droppedItem->getAdditionalInfo())) { ?>
+                                            <?= /* @noEscape */
+                                            $droppedItem->getAdditionalInfo(); ?>
+                                        <?php } ?></td>
+                                    <td><?= /* @noEscape */
+                                        $droppedItem->getPrice(); ?></td>
+                                    <td><?= /* @noEscape */
+                                        $droppedItem->getSupplierName(); ?></td>
+                                    <td><?= /* @noEscape */
+                                        $droppedItem->getCreatedAt(); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+<?php endif; ?>
+<script>
+    require(['prototype'], function () {
+        removeValidation = function (i, itemId, obj) {
+            if (obj.checked === false) {
+                var selectBox = $('supplier[' + i + '][supplier_id]');
+                delete selectBox.removeAttribute('data-validate');
+            }
+        }
+    });
+</script>

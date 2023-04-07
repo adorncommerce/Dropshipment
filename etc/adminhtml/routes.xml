@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<!--
+    /**
+    * Copyright 2023 Adorncommerce LLP. All rights reserved.
+    * See LICENSE.txt for license details.
+    */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route frontName="adorncommerce_dropshipment" id="adorncommerce_dropshipment">
+            <module before="Magento_Backend" name="Adorncommerce_Dropshipment"/>
+        </route>
+        <route id="dropshipment" frontName="dropshipment">
+            <module before="Magento_Backend" name="Adorncommerce_Dropshipment"/>
+        </route>
+    </router>
+</config>

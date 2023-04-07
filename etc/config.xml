@@ -1,0 +1,34 @@
+<!--
+    /**
+    * Copyright 2023 Adorncommerce LLP. All rights reserved.
+    * See LICENSE.txt for license details.
+    */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <dropshipment>
+            <general>
+                <enabled>1</enabled>
+            </general>
+            <dropshipment>
+                <dropshipment_prefix>PO-</dropshipment_prefix>
+                <is_order_status_change>0</is_order_status_change>
+                <is_send_pdf_in_email>1</is_send_pdf_in_email>
+            </dropshipment>
+            <email_option>
+                <email_subject>New Purchase Order</email_subject>
+                <email_header>Important: Your Dropshipment Order has been Generated.</email_header>
+                <email_message>We are excited to let you know that your recent order has been successfully processed and
+                    shipped out via dropshipment.
+                    We hope you're as excited as we are for your order to arrive!
+                    Your order is estimated to arrive at your shipping address within Estimated Delivery Timeframe,
+                    depending on the shipping carrier's transit times.
+                    Please note that some carriers may experience delays beyond our control, but we will do everything
+                    we can to ensure that your order arrives as soon as possible.
+                </email_message>
+                <email_sender_email>general</email_sender_email>
+            </email_option>
+        </dropshipment>
+    </default>
+</config>

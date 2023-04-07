@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      style="font-size: 62.5%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-size-adjust: 100%; background-color: #ffffff;">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style type="text/css">
+        .item-info, .item-qty, .item-price {
+            font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            text-align: left;
+            vertical-align: bottom;
+            background-color: #f2f2f2;
+            padding: 10px;
+        }
+
+        .item-qty {
+            text-align: center;
+        }
+
+        .item-price {
+            text-align: right;
+        }
+
+        .data-table tr td {
+            padding: 10px;
+        }
+
+        .data-table tr td:nth-of-type(2) {
+            text-align: center
+        }
+
+        .data-table tr td:nth-of-type(3) {
+            text-align: right
+        }
+    </style>
+</head>
+<body>
+<!--@vars {
+"var supplier_logo":"Supplier Logo",
+"var email_subject":"Email Subject",
+"var email_header":"Email Header",
+"var email_message|raw":"Email Message",
+"var order_increment_id":"Order Increment Id",
+"var order_created_at":"Order Created At",
+"var billing_info|raw":"Billing info",
+"var shipping_info|raw":"Shipping Info",
+"var items":"Items",
+"var total_cost":"Total Cost"
+} @-->
+<table style="width: 100%">
+    <tr>
+        <td>
+            <table style="width: 100%">
+                <tr>
+                    <td>
+                        <table style="width: 100%; text-align: center">
+                            {{depend supplier_logo}}
+                            <tr>
+                                <td align="center">
+                                    <img src="{{var supplier_logo}}" alt="Supplier Logo" width="100%">
+                                </td>
+                            </tr>
+                            {{/depend}}
+                            <tr>
+                                <td align="center"
+                                    style="font-family: 'Century Gothic', arial, sans-serif; font-size:18px; color:#4d4d4d; font-weight:bold; margin-top: 15px; display:block;">
+                                    {{var email_header}}
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="width: 100%">
+                            <tr>
+                                <td>
+                                    <h1 style="background:#006bb4; font-family: 'Century Gothic', arial, sans-serif; border-radius:5px;padding:10px;color:#fff;font-size:14px;margin-bottom:5px; text-align: center">
+                                        Your Order #{{var order_increment_id}} Placed on {{var
+                                        order_created_at}}</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="5"></td>
+                            </tr>
+                        </table>
+                        <table style="width: 100%">
+                            <tr>
+                                <td align="center"
+                                    style="font-family: 'Century Gothic', arial, sans-serif; font-size:12px; color:#4d4d4d;">
+                                    <p>{{var email_message|raw}}</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="vertical-align: top; width: 50%;">
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td style="vertical-align: top; border: 1px solid #e0e0e0; font-family: arial, sans-serif, 'Century Gothic'; font-weight: bold; font-size: 14px; color: #000000; padding: 12px;">
+                                                Billing Information:
+                                            </td>
+                                        </tr>
+                                        <tr bgcolor="#f9f9f9">
+                                            <td style="vertical-align: top; font-family: arial, sans-serif, 'Century Gothic'; font-size: 12px; color: #000000; border: 1px solid #e0e0e0; text-align: left; padding: 12px; line-height: 20px;">
+                                                <p class="MsoNormal"
+                                                   style="margin-top: 0; margin-bottom: 10px; margin: 0;">
+                                                    {{var billing_info|raw}}
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width: 50%;">
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td style="vertical-align: top; border: 1px solid #e0e0e0; font-family: arial, sans-serif, 'Century Gothic'; font-weight: bold; font-size: 14px; color: #000000; padding: 12px;">
+                                                Shipping Information:
+                                            </td>
+                                        </tr>
+                                        <tr bgcolor="#f9f9f9">
+                                            <td style="vertical-align: top; font-family: arial, sans-serif, 'Century Gothic'; font-size: 12px; color: #000000; border: 1px solid #e0e0e0; text-align: left; padding: 12px; line-height: 20px;">
+                                                <p class="MsoNormal"
+                                                   style="margin-top: 0; margin-bottom: 10px; margin: 0;">
+                                                    {{var shipping_info|raw}}
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="data-table"
+                               style="width: 100%; border-collapse: collapse; border-spacing: 0; max-width: 100%; border: 1px solid #d1d1d1; font-size: 12px">
+                            {{layout handle="dropshipment_dropshipments_purchaseordersubmit" items=$items
+                            area="frontend"}}
+                            <tfoot>
+                            <tr>
+                                <td style="background-color: #f2f2f2; border-top: 1px solid #d1d1d1; font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif; text-align: right; vertical-align: bottom; padding: 10px; font-size: 14px; color: #333333;">
+                                    &nbsp;
+                                </td>
+                                <td style="background-color: #f2f2f2; border-top: 1px solid #d1d1d1; font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif; text-align: right; vertical-align: bottom; padding: 10px; font-size: 14px; color: #333333;">
+                                    &nbsp;
+                                </td>
+                                <td style="background-color: #f2f2f2; border-top: 1px solid #d1d1d1; font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif; text-align: right; vertical-align: bottom; padding: 10px; font-size: 14px; color: #333333;">
+                                    &nbsp;
+                                </td>
+                                <td style="background-color: #f2f2f2; border-top: 1px solid #d1d1d1; font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif; text-align: right; vertical-align: bottom; padding: 10px; font-size: 14px; color: #333333;">
+                                    <strong style="font-weight: 700;">Total</strong>
+                                </td>
+                                <td style="background-color: #f2f2f2; border-top: 1px solid #d1d1d1; font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif; text-align: right; vertical-align: bottom; padding: 10px; font-size: 14px; color: #333333;">
+                                    {{var total_cost}}
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

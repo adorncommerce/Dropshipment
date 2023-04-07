@@ -1,0 +1,184 @@
+<style>
+    td > ul > li {
+        margin-bottom: 0 !important;
+    }
+
+    body {
+        background-color: #f5f5f5;
+    }
+</style>
+<!--@subject {{var email_subject}} @-->
+<!--@vars {
+"var supplier_logo":"Supplier Logo",
+"var email_subject":"Email Subject",
+"var email_header":"Email Header",
+"var email_message|raw":"Email Message",
+"var order_increment_id":"Order Increment Id",
+"var order_created_at":"Order Created At",
+"var billing_info|raw":"Billing info",
+"var shipping_info|raw":"Shipping Info",
+"var items":"Items",
+"var total_cost":"Total Cost"
+} @-->
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr>
+        <td>
+            <table class="table600" width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td height="30"></td>
+                </tr>
+                <tr>
+                    <td align="center"></td>
+                </tr>
+                <tr>
+                    <td height="15"></td>
+                </tr>
+                <tr valign="top">
+                    <td align="center"
+                        style="font-family: 'Century Gothic', arial, sans-serif; font-size:26px; color:#4d4d4d; font-weight:bold;">
+                        {{var email_header}}
+                    </td>
+                </tr>
+                <tr>
+                    <td height="10"></td>
+                </tr>
+                <tr valign="top">
+                    <td align="center" class="email_message"
+                        style="font-family: 'Century Gothic', arial, sans-serif; font-size:16px; color:#000000;">
+                        <p>{{var email_message|raw}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="15"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>
+                        <table class="table600" width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td height="15"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0"
+                                           class="table2-2">
+                                        <tr>
+                                            <td>
+                                                <h1 style="background:#006bb4; font-family: 'Century Gothic', arial, sans-serif; border-radius:5px;padding:10px;color:#fff;font-size:14px;margin-bottom:5px; text-align: center">
+                                                    Your Order #{{var order_increment_id}} Placed on {{var
+                                                    order_created_at}}</h1>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td height="5"></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr bgcolor="#fbfbfb">
+        <td class="main-content">
+            <table class="table600" width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td height="40"></td>
+                </tr>
+                <tr>
+                    <td align="center">
+                    </td>
+                </tr>
+                <tr>
+                    <td height="15"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="table3-3" width="288" border="0" align="left" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td align="left"
+                                    style="border:1px solid #e0e0e0; font-family: arial, sans-serif, 'Century Gothic'; font-weight:bold; font-size:14px; color:#000000; padding: 12px">
+                                    Billing Information:
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="8"></td>
+                            </tr>
+                            <tr align="center" bgcolor="#f9f9f9">
+                                <td style="font-family: arial, sans-serif, 'Century Gothic'; font-size:12px; color:#000000;border:1px solid #e0e0e0; text-align: left; padding: 12px; line-height: 20px">
+                                    <p class="MsoNormal" style="margin: 0">
+                                        {{var billing_info|raw}}
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="8"></td>
+                            </tr>
+                        </table>
+                        <table width="1" height="25" border="0" cellpadding="0" cellspacing="0" align="left">
+                            <tr>
+                                <td style="font-size: 0;line-height: 0;border-collapse: collapse;"><p
+                                        style="padding-left: 24px;">&nbsp;</p></td>
+                            </tr>
+                        </table>
+                        <table class="table1-3" width="288" border="0" align="right" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td align="left"
+                                    style="border:1px solid #e0e0e0; font-family: arial, sans-serif, 'Century Gothic'; font-weight:bold; font-size:14px; color:#000000; padding: 12px">
+                                    Shipping Information:
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="8"></td>
+                            </tr>
+                            <tr align="center" bgcolor="#f9f9f9">
+                                <td style="font-family: arial, sans-serif, 'Century Gothic'; font-size:12px; color:#000000;border:1px solid #e0e0e0;border:1px solid #e0e0e0; text-align: left; padding: 12px; line-height: 20px">
+                                    <p class="MsoNormal" style="margin: 0">{{var shipping_info|raw}}</p></td>
+                            </tr>
+                            <tr>
+                                <td height="8"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="10"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="email-items">
+                            {{layout handle="dropshipment_dropshipments_purchaseordersubmit" items=$items
+                            area="frontend"}}
+                            <tfoot>
+                            <tr>
+                                <td colspan="4"
+                                    style="font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;  text-align: right;  vertical-align: bottom;  padding: 10px; font-size:14px; color:#333333">
+                                    <strong>Total</strong></td>
+                                <td style="font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;  text-align: right;  vertical-align: bottom;  padding: 10px; font-size:14px; color:#333333">
+                                    {{var total_cost}}
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="table1-3" width="100%" border="0" align="right" cellpadding="0" cellspacing="0">
+                        </table>
+                    </td>
+                </tr>
+                <tr></tr>
+            </table>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}
